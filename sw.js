@@ -23,7 +23,79 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox
 if (workbox) {
     console.log(`Yay! Workbox is loaded 🎉`);
     workbox.precaching.precacheAndRoute([
-    ]);
+  {
+    "url": "404.html",
+    "revision": "0a27a4163254fc8fce870c8cc3a3f94f"
+  },
+  {
+    "url": "firebase.json",
+    "revision": "12fa3f4fcba064686cd3a9177276bf86"
+  },
+  {
+    "url": "images/ic_add_white_24px.svg",
+    "revision": "b09442e8f4b45894cf21566f0813453c"
+  },
+  {
+    "url": "images/ic_refresh_white_24px.svg",
+    "revision": "21e4c77a8b98c7516d6c7a97cdbddc22"
+  },
+  {
+    "url": "images/icons/icono-128.png",
+    "revision": "1ac12ad484358df1349d34ec60970776"
+  },
+  {
+    "url": "images/icons/icono-256.png",
+    "revision": "d5c83115a3624f2be62061f9dd23d8db"
+  },
+  {
+    "url": "images/icons/icono-32.png",
+    "revision": "fd38e20ddcaec904342d88d0758e5898"
+  },
+  {
+    "url": "images/icons/icono-512.png",
+    "revision": "97f2a0edb0275c7f685a730ea1bf5e04"
+  },
+  {
+    "url": "images/install.svg",
+    "revision": "c5de4912fe021bbefb235b1ff4ebb455"
+  },
+  {
+    "url": "index.html",
+    "revision": "266b8e8eb4e9fe8275cb62194cf77a36"
+  },
+  {
+    "url": "manifest.json",
+    "revision": "be9c380b847bf729035877992694b818"
+  },
+  {
+    "url": "public/404.html",
+    "revision": "0a27a4163254fc8fce870c8cc3a3f94f"
+  },
+  {
+    "url": "public/index.html",
+    "revision": "f0abdd69af33d5f192a51c8958a51589"
+  },
+  {
+    "url": "scripts/app.js",
+    "revision": "08813a4a24124bbd773cbeff93e2487c"
+  },
+  {
+    "url": "scripts/install.js",
+    "revision": "9dc25b6f03d6739289ef422d2913d03e"
+  },
+  {
+    "url": "service-worker.js",
+    "revision": "89fa9431f02f09b7f89595c11b932da6"
+  },
+  {
+    "url": "styles/inline.css",
+    "revision": "1b9cfb644498e5eb31788bbdbce2bd47"
+  },
+  {
+    "url": "workbox-config.js",
+    "revision": "2b870b579622f5956ebeebbbc689acbc"
+  }
+]);
     workbox.routing.registerRoute(
       /\.js$/,
       new workbox.strategies.CacheFirst(
