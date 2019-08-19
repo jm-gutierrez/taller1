@@ -41,6 +41,7 @@
         app.getSchedule(key, label);
         app.selectedTimetables.push({key: key, label: label});
         app.toggleAddDialog(false);
+        app.saveSelectedStations();
     });
 
     document.getElementById('butAddCancel').addEventListener('click', function () {
@@ -113,6 +114,20 @@
     app.getSchedule = function (key, label) {
         var url = 'https://api-ratp.pierre-grimaud.fr/v3/schedules/' + key;
 
+        if ('caches' in window) {
+            caches.match(url).then(function(response) {
+                if (response) {
+                    response.json().then(function updateFromCache(json) {
+                        var results = json.query.results;
+                        results.key = key;
+                        results.label = label;
+                        results.created = json.query.created;
+                        app.updateTimetableCard(results);
+                    });
+                }
+            });
+        }
+
         var request = new XMLHttpRequest();
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE) {
@@ -168,6 +183,17 @@
 
     };
 
+    app.saveSelectedStations = function(){
+        var selectedTimetables = JSON.stringify(app.selectedTimetables);
+        localStorage.setItem('stationsList', selectedTimetables);
+    };
+
+    app.getSelectedStations = function(){
+        var temp = localStorage.getItem('stationsList');
+        var selectedTimetables = JSON.parse(temp);
+        return selectedTimetables;
+    };
+
 
     /************************************************************************
      *
@@ -180,8 +206,28 @@
      *   SimpleDB (https://gist.github.com/inexorabletash/c8069c042b734519680c)
      ************************************************************************/
 
-    app.getSchedule('metros/1/bastille/A', 'Bastille, Direction La Défense');
+    /*app.getSchedule('metros/1/bastille/A', 'Bastille, Direction La Défense');
     app.selectedTimetables = [
         {key: initialStationTimetable.key, label: initialStationTimetable.label}
-    ];
+    ];*/
+
+    app.init = function(){
+        app.selectedTimetables = app.getSelectedStations();
+        if (app.selectedTimetables) {
+            app.selectedTimetables.forEach(function(i){
+                app.getSchedule(i.key, i.label);
+            })
+        } else {
+            app.getSchedule(initialStationTimetable.key, initialStationTimetable.label);
+            app.selectedTimetables = [{
+                key:initialStationTimetable.key,
+                label:initialStationTimetable.label
+            }]
+            app.saveSelectedStations();
+        }
+    }
+
+
+
+    app.init();
 })();

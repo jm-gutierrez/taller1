@@ -23,12 +23,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paris Métro 1</title>
   <link rel="stylesheet" type="text/css" href="styles/inline.css">
-
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Estaciones PWA">
+  <link rel="apple-touch-icon" href="/images/icons/icono-128.png">
+  <meta name="theme-color" content="#2F3BA2" />
+  <meta name="description" content="Aplicación de estaciones con PWA">
 </head>
 <body>
 
   <header class="header">
     <h1 class="header__title">Paris Métro 1</h1>
+    <button id="butInstall" class="headerButton" aria-label="Install" ></button>
     <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
     <button id="butAdd" class="headerButton" aria-label="Add"></button>
   </header>
@@ -93,6 +100,38 @@
 
   <!-- Uncomment the line below when ready to test with fake data -->
   <script src="scripts/app.js" async></script>
+  <script src="/scripts/install.js"></script>
+   <script>
+    // CODELAB: Register service worker.
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then((reg) => {
+              console.log('Service worker registered.', reg);
+            });
+      });
+    }
+  </script>
 
 </body>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBX9LywaZlF5O9Er7F6ZmoM7rLzUll6pDc",
+    authDomain: "taller1-20190818.firebaseapp.com",
+    databaseURL: "https://taller1-20190818.firebaseio.com",
+    projectId: "taller1-20190818",
+    storageBucket: "",
+    messagingSenderId: "530803358073",
+    appId: "1:530803358073:web:00a3c2d422ff6d09"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
 </html>
